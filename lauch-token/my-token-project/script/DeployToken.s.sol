@@ -11,9 +11,9 @@ contract DeployToken is Script {
         address deployerAddress = vm.addr(deployerPrivateKey);
         
         // Token configuration parameters
-        string memory name = "My Token";
-        string memory symbol = "MTK";
-        uint256 initialSupply = 100_000_000 * 10**18; // 100 million tokens
+        string memory name = "WTF Token";
+        string memory symbol = "WTF";
+        uint256 initialSupply = 100_000_00 * 10**18; // 100 million tokens
         
         // Start broadcasting transactions
         vm.startBroadcast(deployerPrivateKey);

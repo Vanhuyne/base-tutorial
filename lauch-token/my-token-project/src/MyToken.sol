@@ -21,8 +21,6 @@ contract MyToken is ERC20, Ownable {
 
     /**
      * @dev Mint new tokens (only contract owner can call this)
-     * @param to Address to mint tokens to
-     * @param amount Amount of tokens to mint
      */
     function mint(address to, uint256 amount) public onlyOwner {
         require(totalSupply() + amount <= MAX_SUPPLY, "Minting would exceed max supply");
@@ -31,10 +29,23 @@ contract MyToken is ERC20, Ownable {
 
     /**
      * @dev Burn tokens from caller's balance
-     * @param amount Amount of tokens to burn
      */
     function burn(uint256 amount) public {
         _burn(msg.sender, amount);
+    }
+
+        /**
+    * @dev Airdrop tokens from the contract's balance to multiple addresses
+    * @param recipients List of addresses to receive tokens
+    * @param amount Amount of tokens each address will receive
+    */
+    function airdrop(address[] calldata recipients, uint256 amount) external onlyOwner {
+        uint256 totalAmount = recipients.length * amount;
+        require(balanceOf(address(this)) >= totalAmount, "Not enough tokens in contract");
+
+        for (uint256 i = 0; i < recipients.length; i++) {
+            _transfer(address(this), recipients[i], amount);
+        }
     }
 
 }
