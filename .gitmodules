@@ -1,0 +1,3 @@
+[submodule "tipjar-celoapp/lib/forge-std"]
+	path = tipjar-celoapp/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
