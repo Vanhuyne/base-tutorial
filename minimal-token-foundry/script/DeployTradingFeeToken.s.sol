@@ -4,40 +4,38 @@ pragma solidity ^0.8.17;
 import "forge-std/Script.sol";
 import "../src/MinimalToken.sol";
 
-contract DeployMinimalToken is Script {
+contract DeployTradingFeeToken is Script {
     function run() external {
-        // Đọc private key từ biến môi trường
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
 
-        // Bắt đầu broadcast transaction
         vm.startBroadcast(deployerPrivateKey);
 
-        // Định nghĩa các thông số token
-        string memory name = "CONCAC Token";
-        string memory symbol = "CONCAC";
+        // Thông số token với trading fee
+        string memory name = "TradingFee Token";
+        string memory symbol = "TFEE";
         uint8 decimals = 18;
         uint256 initialSupply = 1_000_000 * 10**decimals; // 1 triệu token
+        uint256 tradingFeePercent = 200; // 2% phí giao dịch (200 basis points)
 
-        // Triển khai contract với đầy đủ tham số
+        // Deploy contract với trading fee
         MinimalToken token = new MinimalToken(
             name,
             symbol,
             decimals,
-            initialSupply
+            initialSupply,
+            tradingFeePercent
         );
 
-        // Log thông tin contract ra terminal
-        console.log("==== DEPLOYMENT SUCCESSFUL ====");
-        console.log("Contract deployed at:", address(token));
+        console.log("==== TRADING FEE TOKEN DEPLOYED ====");
+        console.log("Contract Address:", address(token));
         console.log("Token Name:", token.name());
         console.log("Token Symbol:", token.symbol());
-        console.log("Decimals:", token.decimals());
         console.log("Total Supply:", token.totalSupply());
-        console.log("Deployer Address:", msg.sender);
+        console.log("Trading Fee:", token.tradingFeePercent(), "basis points");
+        console.log("Fee Collector:", token.feeCollector());
         console.log("Deployer Balance:", token.balances(msg.sender));
-        console.log("=================================");
+        console.log("====================================");
 
-        // Kết thúc broadcast
         vm.stopBroadcast();
     }
 }
