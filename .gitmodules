@@ -7,3 +7,9 @@
 [submodule "minimal-token-foundry/lib/forge-std"]
 	path = minimal-token-foundry/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "onchain-tool/lib/forge-std"]
+	path = onchain-tool/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "onchain-tool/lib/openzeppelin-contracts"]
+	path = onchain-tool/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
